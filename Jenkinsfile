@@ -9,40 +9,26 @@ pipeline {
             }
         }
 
-        stage('Check Java') {
+        stage('Check Java and Maven') {
             steps {
                 sh 'java -version'
-                sh 'javac -version'
+                sh 'mvn -version'
             }
         }
 
-        stage('Compile') {
+        stage('Build and Test') {
             steps {
-                sh 'javac HelloWorld.java'
+                sh 'mvn clean test'
             }
         }
+    }
 
-        stage('Run') {
-            steps {
-                sh 'java HelloWorld'
-            }
+    post {
+        success {
+            echo 'Build and tests passed!'
         }
-
-        stage('Verify Output') {
-            steps {
-                script {
-                    def output = sh(
-                        script: 'java HelloWorld',
-                        returnStdout: true
-                    ).trim()
-
-                    if (!output.contains('Hello')) {
-                        error 'Verification failed: expected output containing Hello'
-                    }
-
-                    echo 'Verification passed!'
-                }
-            }
+        failure {
+            echo 'Build or tests failed!'
         }
     }
 }
