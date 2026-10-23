@@ -27,5 +27,22 @@ pipeline {
                 sh 'java HelloWorld'
             }
         }
+
+        stage('Verify Output') {
+            steps {
+                script {
+                    def output = sh(
+                        script: 'java HelloWorld',
+                        returnStdout: true
+                    ).trim()
+
+                    if (!output.contains('Hello')) {
+                        error 'Verification failed: expected output containing Hello'
+                    }
+
+                    echo 'Verification passed!'
+                }
+            }
+        }
     }
 }
