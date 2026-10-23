@@ -5,6 +5,7 @@ public class HelloWorld {
 
         System.out.println("Hello from Jenkins CI!");
         System.out.println("Hello from Jenkins CI!");
+        System.out.println("Automatic Jenkins build!");
 
     }
 }
