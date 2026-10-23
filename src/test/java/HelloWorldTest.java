@@ -8,6 +8,9 @@ class HelloWorldTest {
     void shouldReturnExpectedMessage() {
         HelloWorld app = new HelloWorld();
 
-        assertEquals("Wrong message", app.getMessage());
+        assertEquals(
+                "Hello from Jenkins CI!",
+                app.getMessage()
+        );
     }
 }
